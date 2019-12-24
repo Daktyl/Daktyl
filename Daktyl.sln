@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daktyl.Core.Tests", "Daktyl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BassWrapper", "BassWrapper\BassWrapper.csproj", "{7F12D8E8-78F0-4095-94D4-A5AA538BD66A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daktyl.Desktop", "Daktyl.Desktop\Daktyl.Desktop.csproj", "{A93F3640-434E-4726-BBD5-222D3759CC54}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,5 +60,17 @@ Global
 		{7F12D8E8-78F0-4095-94D4-A5AA538BD66A}.Release|x64.Build.0 = Release|Any CPU
 		{7F12D8E8-78F0-4095-94D4-A5AA538BD66A}.Release|x86.ActiveCfg = Release|Any CPU
 		{7F12D8E8-78F0-4095-94D4-A5AA538BD66A}.Release|x86.Build.0 = Release|Any CPU
+		{A93F3640-434E-4726-BBD5-222D3759CC54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A93F3640-434E-4726-BBD5-222D3759CC54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A93F3640-434E-4726-BBD5-222D3759CC54}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A93F3640-434E-4726-BBD5-222D3759CC54}.Debug|x64.Build.0 = Debug|Any CPU
+		{A93F3640-434E-4726-BBD5-222D3759CC54}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A93F3640-434E-4726-BBD5-222D3759CC54}.Debug|x86.Build.0 = Debug|Any CPU
+		{A93F3640-434E-4726-BBD5-222D3759CC54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A93F3640-434E-4726-BBD5-222D3759CC54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A93F3640-434E-4726-BBD5-222D3759CC54}.Release|x64.ActiveCfg = Release|Any CPU
+		{A93F3640-434E-4726-BBD5-222D3759CC54}.Release|x64.Build.0 = Release|Any CPU
+		{A93F3640-434E-4726-BBD5-222D3759CC54}.Release|x86.ActiveCfg = Release|Any CPU
+		{A93F3640-434E-4726-BBD5-222D3759CC54}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
