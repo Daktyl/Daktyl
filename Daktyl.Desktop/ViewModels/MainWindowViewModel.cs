@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Daktyl.Desktop.ViewModels
+﻿namespace Daktyl.Desktop.ViewModels
 {
-    public class MainWindowViewModel : ViewModelBase
-    {
-        public string Greeting => "Hello World!";
-    }
+	public class MainWindowViewModel : ViewModelBase
+	{
+		public string Greeting => "Hello World!";
+	}
 }

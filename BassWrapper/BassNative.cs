@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using Daktyl.Core.Bass.Structures;
 using System.Runtime.InteropServices;
 using BassWrapper.Enums;
+using Daktyl.Core.Bass.Structures;
+
 // ReSharper disable MemberCanBePrivate.Global
 
 namespace BassWrapper
@@ -13,14 +14,8 @@ namespace BassWrapper
 	{
 		private const string Bass = "bass";
 
-		private enum Platform : byte
-		{
-			Windows,
-			Linux,
-			Mac,
-			Android,
-			Ios
-		}
+		private static readonly Platform CurrentPlatform;
+		private static readonly List<uint> Plugins = new List<uint>();
 
 		static BassNative()
 		{
@@ -44,16 +39,13 @@ namespace BassWrapper
 #endif
 		}
 
-		private static readonly Platform CurrentPlatform;
-		private static readonly List<uint> Plugins = new List<uint>();
-
 		[DllImport(Bass, EntryPoint = "BASS_Init")]
 		private static extern bool Init(int device, uint freq, uint flags, IntPtr win, IntPtr clsid);
 
 		internal static bool Init(int device, uint freq, uint flags)
 		{
 			const uint unicode = 0x80000000;
-			string filter = CurrentPlatform switch
+			var filter = CurrentPlatform switch
 			{
 				Platform.Windows => "bass*.dll",
 				Platform.Android => "libbass*.so",
@@ -62,14 +54,12 @@ namespace BassWrapper
 				Platform.Ios => "libbass*.a",
 				_ => throw new PlatformNotSupportedException()
 			};
-			foreach (string file in Directory.GetFiles("bassplugins", filter))
+			foreach (var file in Directory.GetFiles("bassplugins", filter))
 			{
-				uint plugin = LoadPlugin(file, unicode);
-				if (plugin != 0)
-				{
-					Plugins.Add(plugin);
-				}
+				var plugin = LoadPlugin(file, unicode);
+				if (plugin != 0) Plugins.Add(plugin);
 			}
+
 			return Init(device, freq, flags, Process.GetCurrentProcess().MainWindowHandle, IntPtr.Zero);
 		}
 
@@ -78,10 +68,7 @@ namespace BassWrapper
 
 		internal static bool Deinit()
 		{
-			foreach (uint plugin in Plugins)
-			{
-				UnloadPlugin(plugin);
-			}
+			foreach (var plugin in Plugins) UnloadPlugin(plugin);
 			Plugins.Clear();
 			return Free();
 		}
@@ -126,11 +113,8 @@ namespace BassWrapper
 
 		internal static bool GetConfigBool(uint device)
 		{
-			uint config = GetConfigInt(device);
-			if (config == unchecked((uint)-1))
-			{
-				throw new Exception();
-			}
+			var config = GetConfigInt(device);
+			if (config == unchecked((uint) -1)) throw new Exception();
 			return config == 1;
 		}
 
@@ -148,6 +132,15 @@ namespace BassWrapper
 		internal static string GetConfigString(int device)
 		{
 			return CurrentPlatform == Platform.Windows ? GetConfigUtf16(device) : GetConfigUtf8(device);
+		}
+
+		private enum Platform : byte
+		{
+			Windows,
+			Linux,
+			Mac,
+			Android,
+			Ios
 		}
 	}
 }

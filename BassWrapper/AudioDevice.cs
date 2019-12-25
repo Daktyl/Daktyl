@@ -1,5 +1,6 @@
 ﻿using BassWrapper.Enums;
 using Daktyl.Core.Bass.Structures;
+
 // ReSharper disable NotAccessedField.Global
 // ReSharper disable MemberCanBePrivate.Global
 

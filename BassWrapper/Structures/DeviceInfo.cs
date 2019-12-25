@@ -1,6 +1,6 @@
-﻿using BassWrapper.Enums;
-using System;
+﻿using System;
 using System.Runtime.InteropServices;
+using BassWrapper.Enums;
 
 // ReSharper disable MemberCanBePrivate.Global
 
@@ -9,14 +9,13 @@ namespace Daktyl.Core.Bass.Structures
 	[StructLayout(LayoutKind.Sequential)]
 	internal readonly struct DeviceInfo : IEquatable<DeviceInfo>
 	{
-		[MarshalAs(UnmanagedType.LPUTF8Str)]
-		public readonly string name;
-		[MarshalAs(UnmanagedType.LPUTF8Str)]
-		public readonly string driver;
+		[MarshalAs(UnmanagedType.LPUTF8Str)] public readonly string name;
+		[MarshalAs(UnmanagedType.LPUTF8Str)] public readonly string driver;
 
 		public readonly Device flags;
 
 		#region IEquatable
+
 		public bool Equals(DeviceInfo other)
 		{
 			return name == other.name && driver == other.driver && flags == other.flags;
@@ -31,9 +30,9 @@ namespace Daktyl.Core.Bass.Structures
 		{
 			unchecked
 			{
-				int hashCode = (name != null ? name.GetHashCode() : 0);
+				var hashCode = name != null ? name.GetHashCode() : 0;
 				hashCode = (hashCode * 397) ^ (driver != null ? driver.GetHashCode() : 0);
-				hashCode = (hashCode * 397) ^ (int)flags;
+				hashCode = (hashCode * 397) ^ (int) flags;
 				return hashCode;
 			}
 		}
@@ -47,6 +46,7 @@ namespace Daktyl.Core.Bass.Structures
 		{
 			return !left.Equals(right);
 		}
+
 		#endregion
 	}
 }

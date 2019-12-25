@@ -1,7 +1,8 @@
-﻿using BassWrapper.Enums;
-using Daktyl.Core.Bass.Structures;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using BassWrapper.Enums;
+using Daktyl.Core.Bass.Structures;
+
 // ReSharper disable HeapView.BoxingAllocation
 
 namespace BassWrapper
@@ -16,10 +17,8 @@ namespace BassWrapper
 		public bool MoveNext()
 		{
 			DeviceInfo device = default;
-			while ((!device.flags.HasFlagFast(Device.Enabled) || !device.flags.HasFlagFast(Device.TypeMicrophone)) & BassNative.GetRecordDevice(Index, out device))
-			{
-				Index++;
-			}
+			while ((!device.flags.HasFlagFast(Device.Enabled) || !device.flags.HasFlagFast(Device.TypeMicrophone)) &
+					BassNative.GetRecordDevice(Index, out device)) Index++;
 
 			Current = new AudioDevice(Index, device);
 

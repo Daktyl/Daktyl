@@ -1,6 +1,6 @@
-﻿using BassWrapper.Enums;
-using System;
+﻿using System;
 using System.Runtime.InteropServices;
+using BassWrapper.Enums;
 
 // ReSharper disable MemberCanBePrivate.Global
 
@@ -10,30 +10,36 @@ namespace Daktyl.Core.Bass.Structures
 	internal readonly struct RecordInfo : IEquatable<RecordInfo>
 	{
 		/// <summary>
-		/// Device capabilities.
+		///     Device capabilities.
 		/// </summary>
 		public readonly DscCaps flags;
+
 		/// <summary>
-		/// Supported standard formats.
+		///     Supported standard formats.
 		/// </summary>
 		public readonly WaveFormat formats;
+
 		/// <summary>
-		/// Number of inputs.
+		///     Number of inputs.
 		/// </summary>
 		public readonly uint inputs;
+
 		/// <summary>
-		/// If true, only 1 input can be set at a time.
+		///     If true, only 1 input can be set at a time.
 		/// </summary>
 		public readonly bool singlein;
+
 		/// <summary>
-		/// Current input rate.
+		///     Current input rate.
 		/// </summary>
 		public readonly uint freq;
 
 		#region IEquatable
+
 		public bool Equals(RecordInfo other)
 		{
-			return flags == other.flags && formats == other.formats && inputs == other.inputs && singlein == other.singlein && freq == other.freq;
+			return flags == other.flags && formats == other.formats && inputs == other.inputs &&
+					singlein == other.singlein && freq == other.freq;
 		}
 
 		public override bool Equals(object obj)
@@ -45,11 +51,11 @@ namespace Daktyl.Core.Bass.Structures
 		{
 			unchecked
 			{
-				int hashCode = (int)flags;
-				hashCode = (hashCode * 397) ^ (int)formats;
-				hashCode = (hashCode * 397) ^ (int)inputs;
+				var hashCode = (int) flags;
+				hashCode = (hashCode * 397) ^ (int) formats;
+				hashCode = (hashCode * 397) ^ (int) inputs;
 				hashCode = (hashCode * 397) ^ singlein.GetHashCode();
-				hashCode = (hashCode * 397) ^ (int)freq;
+				hashCode = (hashCode * 397) ^ (int) freq;
 				return hashCode;
 			}
 		}
@@ -63,6 +69,7 @@ namespace Daktyl.Core.Bass.Structures
 		{
 			return !left.Equals(right);
 		}
+
 		#endregion
 	}
 }
