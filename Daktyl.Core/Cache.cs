@@ -4,70 +4,79 @@ using System.Threading.Tasks;
 
 namespace Daktyl.Core
 {
-    public class Cache : IDisposable
-    {
-        public Cache(int defaultLifetime)
-        {
-            DefaultLifetime = defaultLifetime;
+	public class Cache : IDisposable
+	{
+		public int DefaultLifetime { get; }
 
-            WorkerTask = Task.Run(
-                async () =>
-                {
-                    while(!_disposeTask)
-                    {
-                        foreach(var pair in _elements)
-                        {
-                            var element = pair.Value;
+		private readonly Dictionary<string, CacheElement> _elements = new Dictionary<string, CacheElement>();
 
-                            if(element.Lifetime >= 0 && --element.Lifetime <= 0)
-                            {
-                                _elements.Remove(pair.Key);
-                            }
-                        }
+		private bool _disposeTask;
 
-                        await Task.Delay(1000);
-                    }
-                }
-            );
-        }
+		public Cache(int defaultLifetime)
+		{
+			DefaultLifetime = defaultLifetime;
 
-        public int DefaultLifetime { get; }
+			Task.Run(async () =>
+				{
+					while (!_disposeTask)
+					{
+						foreach (var pair in _elements)
+						{
+							var element = pair.Value;
 
-        private readonly IDictionary<string, CacheElement> _elements = new Dictionary<string, CacheElement>();
+							if (element.Lifetime >= 0 && --element.Lifetime <= 0)
+							{
+								_elements.Remove(pair.Key);
+							}
+						}
 
-        protected readonly Task WorkerTask;
-        private bool _disposeTask;
+						await Task.Delay(1000);
+					}
+				}
+			);
+		}
 
-        public void Set<T>(string name, T value, int? lifetime = null)
-        {
-            _elements[name] = new CacheElement(value, lifetime ?? DefaultLifetime);
-        }
+		public void Set<T>(string name, T value) => Set(name, value, DefaultLifetime);
 
-        public T GetOrDefault<T>(string name)
-        {
-            return Has(name) ? Get<T>(name) : default;
-        }
+		public void Set<T>(string name, T value, int lifetime)
+		{
+			_elements[name] = new CacheElement<T>(value, lifetime);
+		}
 
-        public T Get<T>(string name)
-        {
-            if(_elements.TryGetValue(name, out var value))
-            {
-                return value.Data is T data
-                    ? data
-                    : throw new InvalidCastException($"Fetched data cannot be cast to {typeof(T).Name}.");
-            }
-            
-            throw new KeyNotFoundException("Couldn't find specified element in cache.");
-        }
+		public bool TryGet<T>(string name, out T value)
+		{
+			if (_elements.TryGetValue(name, out var element))
+			{
+				value = element is CacheElement<T> genericElement
+					? genericElement.Data
+					: throw new InvalidCastException($"Fetched data is not of type {typeof(T).Name}.");
+				return true;
+			}
 
-        public bool Has(string name)
-        {
-            return _elements.ContainsKey(name);
-        }
+			value = default;
+			return false;
+		}
 
-        public void Dispose()
-        {
-            _disposeTask = true;
-        }
-    }
+		public T Get<T>(string name)
+		{
+			return TryGet(name, out T result)
+				? result
+				: throw new KeyNotFoundException("Couldn't find specified element in cache.");
+		}
+
+		public T GetOrDefault<T>(string name)
+		{
+			return TryGet(name, out T result) ? result : default;
+		}
+
+		public bool Has(string name)
+		{
+			return _elements.ContainsKey(name);
+		}
+
+		public void Dispose()
+		{
+			_disposeTask = true;
+		}
+	}
 }
