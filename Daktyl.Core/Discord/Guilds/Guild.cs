@@ -14,7 +14,7 @@ namespace Daktyl.Core.Discord.Guilds
 		public string? DiscoverySplash { get; }
 		public bool? Owner { get; }
 		public Snowflake OwnerId { get; }
-		public int? Permissions { get; }
+		public PermissionFlags? Permissions { get; }
 		public string Region { get; }
 		public Snowflake? AfkChannelId { get; }
 		public int AfkTimeout { get; }
@@ -52,7 +52,7 @@ namespace Daktyl.Core.Discord.Guilds
 		public Snowflake? PublicUpdatesChannelId { get; }
 
 		public Guild(Snowflake id, string name, string? icon, string? splash, string? discoverySplash, bool? owner,
-			Snowflake ownerId, int? permissions, string region, Snowflake? afkChannelId, int afkTimeout,
+			Snowflake ownerId, PermissionFlags? permissions, string region, Snowflake? afkChannelId, int afkTimeout,
 			bool? embedEnabled, Snowflake? embedChannelId, VerificationLevel verificationLevel,
 			MessageNotificationLevel defaultMessageNotifictations, ExplicitContentFilterLevel explicitContentFilter,
 			Role[] roles, Emoji[] emojis, string[] features, MFALevel mfaLevel, Snowflake? applicationId,

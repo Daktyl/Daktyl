@@ -6,10 +6,10 @@ namespace Daktyl.Core.Discord
 	{
 		public Snowflake Id { get; }
 		public string Type { get; }
-		public int AllowFlags { get; }
-		public int DenyFlags { get; }
-
-		public PermissionOverwrite(Snowflake id, string type, int allowFlags, int denyFlags)
+		public PermissionFlags DenyFlags { get; }
+		public PermissionFlags AllowFlags { get; }
+		
+		public PermissionOverwrite(Snowflake id, string type, PermissionFlags allowFlags, PermissionFlags denyFlags)
 		{
 			Id = id;
 			Type = type;
