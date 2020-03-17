@@ -17,9 +17,11 @@ namespace BassWrapper
 		private static readonly Platform CurrentPlatform;
 		private static readonly List<uint> Plugins = new List<uint>();
 
+		internal delegate bool RecordCallback(uint handle, IntPtr buffer, uint length, IntPtr user);
+
 		static BassNative()
 		{
-#if NETCOREAPP3_1
+#if NETCOREAPP
 			if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
 			{
 				CurrentPlatform = Platform.Windows;
@@ -32,7 +34,7 @@ namespace BassWrapper
 			{
 				CurrentPlatform = Platform.Mac;
 			}
-#elif MONOANDROID90
+#elif MONOANDROID
 			CurrentPlatform = Platform.Android;
 #elif XAMARIN_IOS
 			CurrentPlatform = Platform.Ios;
@@ -133,6 +135,27 @@ namespace BassWrapper
 		{
 			return CurrentPlatform == Platform.Windows ? GetConfigUtf16(device) : GetConfigUtf8(device);
 		}
+
+		[DllImport(Bass, EntryPoint = "BASS_RecordInit")]
+		internal static extern bool RecordInit(int device);
+
+		[DllImport(Bass, EntryPoint = "BASS_RecordFree")]
+		internal static extern bool RecordFree();
+
+		[DllImport(Bass, EntryPoint = "BASS_RecordSetDevice")]
+		internal static extern bool RecordSetDevice(int device);
+
+		[DllImport(Bass, EntryPoint = "BASS_RecordStart")]
+		internal static extern uint RecordStart(uint freq, uint chans, uint flags, RecordCallback proc, IntPtr user);
+
+		[DllImport(Bass, EntryPoint = "BASS_ChannelPlay")]
+		internal static extern bool ChannelPlay(uint handle, bool restart);
+
+		[DllImport(Bass, EntryPoint = "BASS_ChannelPause")]
+		internal static extern bool ChannelPause(uint handle);
+
+		[DllImport(Bass, EntryPoint = "BASS_ChannelStop")]
+		internal static extern bool ChannelStop(uint handle);
 
 		private enum Platform : byte
 		{
