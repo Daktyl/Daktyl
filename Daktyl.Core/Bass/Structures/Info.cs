@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using BassWrapper.Enums;
+using Daktyl.Core.Bass.Enums;
 
 // ReSharper disable MemberCanBePrivate.Global
 

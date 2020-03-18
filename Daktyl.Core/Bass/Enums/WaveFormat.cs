@@ -2,7 +2,7 @@
 
 // ReSharper disable InconsistentNaming
 
-namespace BassWrapper.Enums
+namespace Daktyl.Core.Bass.Enums
 {
 	[Flags]
 	internal enum WaveFormat : uint

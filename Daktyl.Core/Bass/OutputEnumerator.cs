@@ -1,13 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using BassWrapper.Enums;
+using Daktyl.Core.Bass.Enums;
 using Daktyl.Core.Bass.Structures;
 
 // ReSharper disable HeapView.BoxingAllocation
 
-namespace BassWrapper
+namespace Daktyl.Core.Bass
 {
-	internal struct InputEnumerator : IEnumerator<AudioDevice>
+	internal struct OutputEnumerator : IEnumerator<AudioDevice>
 	{
 		internal int Index;
 		public AudioDevice Current { get; private set; }
@@ -17,17 +17,16 @@ namespace BassWrapper
 		public bool MoveNext()
 		{
 			DeviceInfo device = default;
-			while ((!device.flags.HasFlagFast(Device.Enabled) || !device.flags.HasFlagFast(Device.TypeMicrophone)) &
-					BassNative.GetRecordDevice(Index, out device)) Index++;
+			while (!device.flags.HasFlagFast(Device.Enabled) & BassNative.GetDevice(Index, out device)) Index++;
 
 			Current = new AudioDevice(Index, device);
 
-			return device.flags.HasFlagFast(Device.Enabled) && device.flags.HasFlagFast(Device.TypeMicrophone);
+			return device.flags.HasFlagFast(Device.Enabled);
 		}
 
 		public void Reset()
 		{
-			Index = 0;
+			Index = 1;
 		}
 
 		public void Dispose()

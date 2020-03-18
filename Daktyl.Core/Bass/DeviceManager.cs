@@ -1,4 +1,4 @@
-﻿namespace BassWrapper
+﻿namespace Daktyl.Core.Bass
 {
 	internal static class DeviceManager
 	{

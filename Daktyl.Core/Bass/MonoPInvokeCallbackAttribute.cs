@@ -1,8 +1,9 @@
 ﻿using System;
+
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable NotAccessedField.Global
 
-namespace BassWrapper
+namespace Daktyl.Core.Bass
 {
 	internal class MonoPInvokeCallbackAttribute : Attribute
 	{

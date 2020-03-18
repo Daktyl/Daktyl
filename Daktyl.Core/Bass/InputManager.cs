@@ -2,7 +2,7 @@
 using System.IO;
 using System.Runtime.InteropServices;
 
-namespace BassWrapper
+namespace Daktyl.Core.Bass
 {
 	public static class InputManager
 	{

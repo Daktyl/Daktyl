@@ -13,7 +13,4 @@
     <PackageReference Include="Ninja.WebSockets" Version="1.1.6" />
     <PackageReference Include="Utf8Json" Version="1.3.7" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BassWrapper\BassWrapper.csproj" />
-  </ItemGroup>
 </Project>

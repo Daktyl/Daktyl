@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
-using BassWrapper.Enums;
+using Daktyl.Core.Bass.Enums;
 using Daktyl.Core.Bass.Structures;
 
 // ReSharper disable MemberCanBePrivate.Global
 
-namespace BassWrapper
+namespace Daktyl.Core.Bass
 {
 	internal static class BassNative
 	{

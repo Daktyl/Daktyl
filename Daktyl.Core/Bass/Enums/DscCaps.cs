@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BassWrapper.Enums
+namespace Daktyl.Core.Bass.Enums
 {
 	[Flags]
 	internal enum DscCaps : uint

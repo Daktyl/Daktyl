@@ -1,10 +1,10 @@
-﻿using BassWrapper.Enums;
+﻿using Daktyl.Core.Bass.Enums;
 using Daktyl.Core.Bass.Structures;
 
 // ReSharper disable NotAccessedField.Global
 // ReSharper disable MemberCanBePrivate.Global
 
-namespace BassWrapper
+namespace Daktyl.Core.Bass
 {
 	internal readonly struct AudioDevice
 	{

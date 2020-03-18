@@ -1,4 +1,4 @@
-﻿namespace BassWrapper.Enums
+﻿namespace Daktyl.Core.Bass.Enums
 {
 	internal enum ErrorCode
 	{

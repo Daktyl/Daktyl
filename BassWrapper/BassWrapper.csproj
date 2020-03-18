@@ -1,7 +1,0 @@
-﻿<Project Sdk="MSBuild.Sdk.Extras">
-  <PropertyGroup>
-    <TargetFrameworks>Xamarin.iOS10;MonoAndroid90;netcoreapp3.1</TargetFrameworks>
-    <LangVersion>8</LangVersion>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
-</Project>
